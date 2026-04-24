@@ -40,12 +40,34 @@ app.use(cors(corsOptions))
 app.post('/v1/senai/locadora/filme', bodyParserJSON, async function(request, response){
     //Recebe o conteudo dentro do body da requisição
     let dados = request.body
+    //recebe o contentType da requisição para validar se é um JSON
+    let contentType = request.headers['content-type']
+    //console.log(request.headers)
 
-    let result = await controllerFilme.inserirNovoFilme(dados)
-
+    let result = await controllerFilme.inserirNovoFilme(dados, contentType)
+    console.log(result)
     response.status(result.status_code)
     response.json(result)
 
+})
+
+app.get("/v1/senai/locadora/filme", async function(request,response){
+    let result = await controllerFilme.listarFilme()
+
+    response.status(result.status_code)
+    response.json(result)
+   
+    
+})
+
+app.get("/v1/senai/locadora/filme/:id", async function(request, response) {
+    //Recebe o ID por parametro
+    let id = request.params.id
+    
+    let result = await controllerFilme.buscarFilme(id)
+
+    response.status(result.status_code)
+    response.json(result)
 })
 
 //serve para inicializar a API para receber requisições

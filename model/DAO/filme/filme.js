@@ -15,59 +15,98 @@ const knexConfig = require('../../database_config_knex/knexFile.js')
 const knexConex = knex(knexConfig.development)
 
 //Função para inserir dados na tabela de filme
-const insertFilme = async function(filme){
+const updateFilme = async function (filme) {
 }
 
 //Função para atualizar um filme existente na tabela
-const updateFilme = async function (filme) {
-    let sql = `insert into tbl_filme(
-                nome,
-                data_lancamento,
-                duracao,
-                sinopse,
-                avaliacao,
-                valor,
-                capa
-            )
-values (
-		'${filme.nome}',
-        '${filme.data_lancamento}',
-        '${filme.duracao}',
-        '${filme.sinopse}',
-        '${filme.avaliacao}',
-        '${filme.preco}',
-        '${filme.capa}'
-        );`
+const insertFilme = async function (filme) {
+    try {
+            let sql = `insert into tbl_filme(
+                    nome,
+                    data_lancamento,
+                    duracao,
+                    sinopse,
+                    avaliacao,
+                    valor,
+                    capa
+                )
+            values (
+                '${filme.nome}',
+                '${filme.data_lancamento}',
+                '${filme.duracao}',
+                '${filme.sinopse}',
+                if('${filme.avaliacao}' = '', null, '${filme.avaliacao}'),
+                '${filme.valor}',
+                '${filme.capa}'
+                );`
+
+
+
+            //Executar o ScriptSQL no banco de dados
+            let result = await knexConex.raw(sql)
+
+            if(result) 
+                return true
+            else{return false}
         
-       //Executar o ScriptSQL no banco de dados
-       let result = await knexConex.raw(sql)
+        }catch (error) {
+            console.log(error)
+            return message.ERROR_INTERNAL_SERVER_CONTROLLER
+        }
+    }
 
-    if (result)
-        return true
-    else
-        return false
-}
-
-//Função para retornar todos os dados da tabela de filme
-const selectAllFilme = async function () {
+    //Função para retornar todos os dados da tabela de filme
+    const selectAllFilme = async function () {
+        try {
+            //script select pra ver todos os filmes
+            let sql = `select * from tbl_filme order by id desc`
     
-}
-
-//Função para retornar os dados do filme filtrando pelo ID
-const selectByIdFilme = async function (id) {
+            // executa o script no banco
+            let result = await knexConex.raw(sql)
     
-}
-
-//Função para excluir um filme pelo ID
-const deleteFilme = async function (id) {
+            // verifica se o script retornou um array
+            if (Array.isArray(result)) {
+                return result[0] 
+            }else{
+                return false
+            }
     
-}
+        } catch (error) {
+            //console.log(error)
+            return false 
+            
+        }
+    }
+
+    //Função para retornar os dados do filme filtrando pelo ID
+    const selectByIdFilme = async function (id) {
+        try {
+            let sql = `select * from tbl_filme where id=${id}`
+
+            let result = await knexConex.raw(sql)
+            if(Array.isArray(result)){
+                return result[0]
+            }else{
+            return false
+            }
+        } catch (error) {
+                return false
+            }
+
+    }
+
+    //Função para excluir um filme pelo ID
+    const deleteFilme = async function (id) {
+
+    }
 
 
-module.exports ={
-    insertFilme,
-    updateFilme,
-    selectAllFilme,
-    selectByIdFilme,
-    deleteFilme
-}
+
+
+    module.exports = {
+        insertFilme,
+        updateFilme,
+        selectAllFilme,
+        selectByIdFilme,
+        deleteFilme
+    }

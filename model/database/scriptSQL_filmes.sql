@@ -41,3 +41,6 @@ values (
         );
         
         select * from tbl_filme;
+        select * from tbl_filme order by id desc;
+        
+        delete from tbl_filme where id > 0;
