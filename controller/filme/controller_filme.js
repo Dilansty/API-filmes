@@ -55,7 +55,51 @@ const inserirNovoFilme = async function (filme, contentType) {
 }
 
 //Função para atualizar um filme existente na tabela
-const atualizarFilme = async function () {
+const atualizarFilme = async function (filme,id,contentType) {
+    let message = JSON.parse(JSON.stringify(config_message))
+            
+    try {
+        //Validação do content type para receber o JSON
+        if (String(contentType).toUpperCase() == 'APPLICATION/JSON'){
+            let resultBuscarID = await buscarFilme(id)
+            //Se a função buscar encontrar o filme o atributo status do JSON será verdadeiro
+            //Isso significa que o filme existe na base, caso não retorne true, então p retorno da função
+            //poderá ser um 400 ou 404 ou até mesmo um 500
+            if(resultBuscarID.status){           
+                let validar = await validarDados(filme)
+                //validação de campos obrigatorios para a atualização(body)
+                if(!validar){
+                    //adiciono o atributo ID do filme no JSON para ser enviado ao DAO
+                    filme.id = id
+
+                    //chama a função do DAO para atualizar o filme(dados e o ID)
+                    let result = await filmeDAO.updateFilme(filme)
+
+                    if(result){
+                        message.DEFAULT_MESSAGE.status = message.SUCCESS_UPDATED_ITEM.status
+                        message.DEFAULT_MESSAGE.status_code = message.SUCCESS_UPDATED_ITEM.status_code
+                        message.DEFAULT_MESSAGE.message = message.SUCCESS_UPDATED_ITEM.message
+
+                        return message.DEFAULT_MESSAGE //200(Atualizado)
+
+                    }else{
+                        return message.ERROR_INTERNAL_SERVER_MODEL//500
+                    }
+                }else{
+                    return validar//400
+
+                }                                
+
+            }else{
+                return resultBuscarID//400 ou 404 ou 500
+            }    
+        }else{
+            return message.ERROR_CONTENT_TYPE //415
+        }
+        
+    } catch (error) {
+        return config_message.ERROR_INTERNAL_SERVER_CONTROLLER //500
+    }
 }
 
 
@@ -74,8 +118,8 @@ const listarFilme = async function () {
             // valida se a array de retorno do DAO tem algo dentro
             if (result.length>0) {
                 //poem o status , o codigo de status e a msg com os filmes
-                message.DEFAULT_MESSAGE.status            = message.SUCESS_RESPONSE.status
-                message.DEFAULT_MESSAGE.status_code       = message.SUCESS_RESPONSE.status_code
+                message.DEFAULT_MESSAGE.status            = message.SUCCESS_RESPONSE.status
+                message.DEFAULT_MESSAGE.status_code       = message.SUCCESS_RESPONSE.status_code
                 message.DEFAULT_MESSAGE.response.count    = result.length
                 message.DEFAULT_MESSAGE.response.filme    = result
                 
@@ -109,8 +153,8 @@ const buscarFilme = async function (id) {
 
             if(result){
                 if(result.length > 0){
-                    message.DEFAULT_MESSAGE.status          =    message.SUCESS_RESPONSE.status
-                    message.DEFAULT_MESSAGE.status_code     =    message.SUCESS_RESPONSE.status_code//200
+                    message.DEFAULT_MESSAGE.status          =    message.SUCCESS_RESPONSE.status
+                    message.DEFAULT_MESSAGE.status_code     =    message.SUCCESS_RESPONSE.status_code//200
                     message.DEFAULT_MESSAGE.response.filme  =    result
 
                     return message.DEFAULT_MESSAGE //200

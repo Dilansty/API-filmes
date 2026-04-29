@@ -44,3 +44,14 @@ values (
         select * from tbl_filme order by id desc;
         
         delete from tbl_filme where id > 0;
+        
+        
+        update tbl_filme set
+        nome = 'filme 02',
+        data_lancamento = '2000-01-01',
+        duracao = '2:00',
+        sinopse = 'testando  o update no banco de dados',
+        avaliacao = '1',
+        valor = '10',
+        capa = 'teste capa'
+        where id = 14;

@@ -55,10 +55,16 @@ const ERROR_NOT_FOUND ={
     message:            "nao foi encontrado nenhum dado para retorno"
 }
 
-
-const SUCESS_RESPONSE = {
+//Retorno para GET
+const SUCCESS_RESPONSE = {
     status:             true,
     status_code:        200,
+}
+//Retorno para PUT
+const SUCCESS_UPDATED_ITEM = {
+    status:         true,
+    status_code:    200,
+    message:        "Registro atualizado com sucesso"
 }
 
 //exportando as variaveis de recado
@@ -70,5 +76,6 @@ module.exports = {
     ERROR_CONTENT_TYPE,
     ERROR_INTERNAL_SERVER_CONTROLLER,
     ERROR_NOT_FOUND,
-    SUCESS_RESPONSE
+    SUCCESS_RESPONSE,
+    SUCCESS_UPDATED_ITEM
 }
