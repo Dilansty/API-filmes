@@ -67,6 +67,13 @@ const SUCCESS_UPDATED_ITEM = {
     message:        "Registro atualizado com sucesso"
 }
 
+//Retorno para DELETE(200 ou 204)
+const SUCCESS_DELETED_ITEM = {
+    status:         true,
+    status_code:    200,
+    message:        "Registro excluido com sucesso"
+}
+
 //exportando as variaveis de recado
 module.exports = {
     DEFAULT_MESSAGE,
@@ -77,5 +84,6 @@ module.exports = {
     ERROR_INTERNAL_SERVER_CONTROLLER,
     ERROR_NOT_FOUND,
     SUCCESS_RESPONSE,
-    SUCCESS_UPDATED_ITEM
+    SUCCESS_UPDATED_ITEM,
+    SUCCESS_DELETED_ITEM
 }

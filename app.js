@@ -37,6 +37,8 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 //EndPoints para a API
+
+
 app.post('/v1/senai/locadora/filme', bodyParserJSON, async function(request, response){
     //Recebe o conteudo dentro do body da requisição
     let dados = request.body
@@ -70,6 +72,7 @@ app.get("/v1/senai/locadora/filme/:id", async function(request, response) {
     response.json(result)
 })
 
+//Endpoint para Atualizar um Filme pelo ID
 app.put("/v1/senai/locadora/filme/:id",bodyParserJSON, async function(request, response) {
     
     //Recebe o content type da requisição
@@ -87,8 +90,14 @@ app.put("/v1/senai/locadora/filme/:id",bodyParserJSON, async function(request, r
     response.json(result)
 })
 
-app.delete("/v1/senai/locadora/filme/delete/:id",bodyParserJSON, async function(request, response) {
-    const deleteFilme = await controllerFilme.excluirFilme()
+//Endpoint para Deletar um Filme pelo ID
+app.delete("/v1/senai/locadora/filme/:id", async function(request, response) {
+    let id = request.params.id
+    
+    let result = await controllerFilme.excluirFilme(id)
+
+    response.status(result.status_code)
+    response.json(result)
 })
 
 //serve para inicializar a API para receber requisições

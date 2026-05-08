@@ -70,10 +70,12 @@ const insertFilme = async function (filme) {
         //Executar o ScriptSQL no banco de dados
         let result = await knexConex.raw(sql)
 
-        if (result)
-            return true
-        else { return false }
-
+        if(result){
+            return result[0].insertId // Retorna o ID gerado no BD
+        }else{
+            return false
+        }
+        
     } catch (error) {
         console.log(error)
         return message.ERROR_INTERNAL_SERVER_CONTROLLER
@@ -123,10 +125,7 @@ const selectByIdFilme = async function (id) {
 //Função para excluir um filme pelo ID
 const deleteFilme = async function (id) {
     try {
-        let sql = `delete from tbl_filme 
-                    where id = ${id} ;`
-
-
+        let sql = `delete from tbl_filme where id = ${id} ;`
 
         //Executar o ScriptSQL no banco de dados
         let result = await knexConex.raw(sql)
