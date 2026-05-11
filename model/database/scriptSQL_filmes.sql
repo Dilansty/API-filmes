@@ -16,6 +16,37 @@ valor 				decimal(5,2) not null default 0,
 capa 				varchar(255)
 );
 
+create table tbl_cargo(
+    id          int not null primary key auto_increment,
+    cargo       varchar(45) not null
+);
+
+create table tbl_nacionalidade(
+id                  int not null primary key auto_increment,
+tbl_nacionalidade   varchar(45) not null
+);
+
+create table tbl_genero(
+    id          int not null primary key auto_increment,
+    genero       varchar(45) not null
+);
+
+create table tbl_classificacao(
+    id          int not null primary key auto_increment,
+    classificacao       varchar(45) not null,
+    caracteristica       varchar(45) not null
+);
+
+create table tbl_pessoa(
+    id                   int not null primary key auto_increment,
+    nome                 varchar(100) not null,
+    data_nascimento      date,
+    biografia            text,
+    foto                 varchar(255) 
+);
+
+
+
 show tables;
 
 #Inserir dados

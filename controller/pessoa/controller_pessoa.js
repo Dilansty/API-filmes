@@ -1,7 +1,7 @@
 /***************************************************************************************************
  * Objetivo: Arquivo responsavel pela validação, 
- * tratamento e manipulação de dados para o CRUD de filmes
- * Data: 17/04/2026 
+ * tratamento e manipulação de dados para o CRUD de pessoas
+ * Data: 08/05/2026 
  * Autor: Allan de Sousa Almeida 
  * Versão: 1.0 
  **************************************************************************************************/

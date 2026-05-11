@@ -1,7 +1,7 @@
 /***************************************************************************************************
  * Objetivo: Arquivo responsavel pela validação, 
- * tratamento e manipulação de dados para o CRUD de filmes
- * Data: 17/04/2026 
+ * tratamento e manipulação de dados para o CRUD de classificações
+ * Data: 08/05/2026 
  * Autor: Allan de Sousa Almeida 
  * Versão: 1.0 
  **************************************************************************************************/
@@ -13,7 +13,7 @@ const config_message = require('../modulo/configMessages.js')
 const filmeDAO = require('../../model/DAO/filme/filme.js')
 
 //Função para inserir dados na tabela de filme
-const inserirNovoFilme = async function (filme, contentType) {
+const inserirNovoClassificacao = async function (filme, contentType) {
 
 
     //Criando um clone do objeto JSON para manipular a sua estrutura local sem modificar a estrutra original
@@ -63,7 +63,7 @@ const inserirNovoFilme = async function (filme, contentType) {
 }
 
 //Função para atualizar um filme existente na tabela
-const atualizarFilme = async function (filme,id,contentType) {
+const atualizarClassificacao = async function (filme,id,contentType) {
     let message = JSON.parse(JSON.stringify(config_message))
             
     try {
@@ -112,11 +112,11 @@ const atualizarFilme = async function (filme,id,contentType) {
 }
 
 //Função para retornar todos os dados da tabela de filme
-const selecionarFilme = async function () {
+const selecionarClassificacao = async function () {
 }
 
 //Função para retornar todos os filmes
-const listarFilme = async function () {
+const listarClassificacao = async function () {
     let message = JSON.parse(JSON.stringify(config_message))
         
     try {
@@ -147,7 +147,7 @@ const listarFilme = async function () {
 }
 
 //Função para retornar os dados do filme filtrando pelo ID
-const buscarFilme = async function (id) {
+const buscarClassificacao = async function (id) {
      //Criando um clone do objeto JSON para manipular a sua estrutura local sem modificar a estrutra original
      let message = JSON.parse(JSON.stringify(config_message))
 
@@ -181,7 +181,7 @@ const buscarFilme = async function (id) {
 }
 
 //Função para excluir um filme pelo ID
-const excluirFilme = async function (id) {
+const excluirClassificacao = async function (id) {
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {

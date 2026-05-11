@@ -1,7 +1,7 @@
 /***************************************************************************************************
  * Objetivo: Arquivo responsavel pela validação, 
- * tratamento e manipulação de dados para o CRUD de filmes
- * Data: 17/04/2026 
+ * tratamento e manipulação de dados para o CRUD de cargos
+ * Data: 02/05/2026
  * Autor: Allan de Sousa Almeida 
  * Versão: 1.0 
  **************************************************************************************************/
@@ -13,7 +13,7 @@ const config_message = require('../modulo/configMessages.js')
 const filmeDAO = require('../../model/DAO/filme/filme.js')
 
 //Função para inserir dados na tabela de filme
-const inserirNovoFilme = async function (filme, contentType) {
+const inserirNovoCargo = async function (cargo, contentType) {
 
 
     //Criando um clone do objeto JSON para manipular a sua estrutura local sem modificar a estrutra original
@@ -63,7 +63,7 @@ const inserirNovoFilme = async function (filme, contentType) {
 }
 
 //Função para atualizar um filme existente na tabela
-const atualizarFilme = async function (filme,id,contentType) {
+const atualizarCargo = async function (cargo,id,contentType) {
     let message = JSON.parse(JSON.stringify(config_message))
             
     try {
@@ -112,11 +112,11 @@ const atualizarFilme = async function (filme,id,contentType) {
 }
 
 //Função para retornar todos os dados da tabela de filme
-const selecionarFilme = async function () {
+const selecionarCargo = async function () {
 }
 
 //Função para retornar todos os filmes
-const listarFilme = async function () {
+const listarCargo = async function () {
     let message = JSON.parse(JSON.stringify(config_message))
         
     try {
@@ -147,7 +147,7 @@ const listarFilme = async function () {
 }
 
 //Função para retornar os dados do filme filtrando pelo ID
-const buscarFilme = async function (id) {
+const buscarCargo = async function (id) {
      //Criando um clone do objeto JSON para manipular a sua estrutura local sem modificar a estrutra original
      let message = JSON.parse(JSON.stringify(config_message))
 
@@ -181,7 +181,7 @@ const buscarFilme = async function (id) {
 }
 
 //Função para excluir um filme pelo ID
-const excluirFilme = async function (id) {
+const excluirCargo = async function (id) {
     let message = JSON.parse(JSON.stringify(config_message))
 
     try {
@@ -209,7 +209,7 @@ const excluirFilme = async function (id) {
 }
 
 //Funcção para validar todos os dados de filme(obrigatórios, quantidade de caracteres, etc)
-const validarDados = async function (filme) {
+const validarDados = async function (cargo) {
     //Criando um clone do objeto JSON para manipular a sua estrutura local sem modificar a estrutra original
     let message = JSON.parse(JSON.stringify(config_message))
 
