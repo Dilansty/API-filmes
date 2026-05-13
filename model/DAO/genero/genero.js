@@ -40,10 +40,10 @@ const updateGenero = async function (genero) {
 const insertGenero = async function (genero) {
     try {
         let sql = `insert into tbl_genero(
-                    genero,
+                    genero
                 )
             values (
-                '${genero.genero}',
+                '${genero.genero}'
                 );`
 
 

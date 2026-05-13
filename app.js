@@ -12,6 +12,8 @@
  * 
 ******************************************************************************************/
 
+
+
 //import das dependencias para criar a API
 const express       = require('express')
 const cors          = require('cors')
@@ -19,6 +21,7 @@ const bodyParser    = require('body-parser')
 
 //Import das CONTROLLERS do projeto
 const controllerFilme = require('./controller/filme/controller_filme.js')
+const controllerGenero = require('./controller/genero/controller_genero.js')
 
 //Criando um objeto para manipular dados do body da API em formato JSON
 const bodyParserJSON = bodyParser.json()  
@@ -39,6 +42,7 @@ app.use(cors(corsOptions))
 //EndPoints para a API
 
 
+//APP DO FILME
 app.post('/v1/senai/locadora/filme', bodyParserJSON, async function(request, response){
     //Recebe o conteudo dentro do body da requisição
     let dados = request.body
@@ -99,6 +103,47 @@ app.delete("/v1/senai/locadora/filme/:id", async function(request, response) {
     response.status(result.status_code)
     response.json(result)
 })
+
+
+
+
+
+
+
+
+
+
+
+
+//APP DO GENERO
+app.post('/v1/senai/locadora/genero', bodyParserJSON, async function(request, response){
+    //Recebe o conteudo dentro do body da requisição
+    let dados = request.body
+    //recebe o contentType da requisição para validar se é um JSON
+    let contentType = request.headers['content-type']
+    //console.log(request.headers)
+
+    let result = await controllerGenero.inserirNovoGenero(dados, contentType)
+    console.log(result)
+    response.status(result.status_code)
+    response.json(result)
+
+})
+
+
+
+
+app.get("/v1/senai/locadora/genero", async function(request,response){
+    let result = await controllerGenero.listarGenero()
+
+    response.status(result.status_code)
+    response.json(result)
+     
+})
+
+
+
+
 
 //serve para inicializar a API para receber requisições
 app.listen(8080, function () {
