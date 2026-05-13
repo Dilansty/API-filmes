@@ -37,29 +37,52 @@ const updateGenero = async function (genero) {
 }
 
 //Função para atualizar um filme existente na tabela
-const insertGenero = async function (genero) {
-    try {
-        let sql = `insert into tbl_genero(
-                    genero
-                )
-            values (
-                '${genero.genero}'
-                );`
+// const insertGenero = async function (genero) {
+//     try {
+//         let sql = `insert into tbl_genero(
+//                     genero
+//                 )
+//             values (
+//                 '${genero.genero}'
+//                 );`
 
 
-        //Executar o ScriptSQL no banco de dados
-        let result = await knexConex.raw(sql)
+//         //Executar o ScriptSQL no banco de dados
+//         let result = await knexConex.raw(sql)
 
-        if(result){
-            return result[0].insertId // Retorna o ID gerado no BD
-        }else{
-            return false
-        }
+//         if(result){
+//             return result[0].insertId // Retorna o ID gerado no BD
+//         }else{
+//             return false
+//         }
         
+//     } catch (error) {
+//         console.log(error)
+//         return message.ERROR_INTERNAL_SERVER_CONTROLLER
+//     }
+// }
+
+async function insertGenero(genero){
+
+    try {
+        //script pra onserir filme no banco de dados
+        let sql = `insert into tbl_genero(
+                        genero
+                        )
+                    values(
+                        '${genero.genero}'); `
+        
+        //executa o scriptSQL no banco de dados
+        let result = await knexConex.raw(sql)
+        //console.log(result[0].insertId)
+        if(result){
+            return result[0].insertId// retorna o id 
+        }else{return false}
     } catch (error) {
-        console.log(error)
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER
+        //console.log(error)//erro 500 descomentar essa linha
+        return false
     }
+
 }
 
 //Função para retornar todos os dados da tabela de filme

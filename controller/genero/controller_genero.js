@@ -96,6 +96,7 @@ async function inserirNovoGenero(genero,conteType) {
         }else{return message.ERROR_CONTENT_TYPE}//415
             
     } catch (error) {
+        console.log('deu ruim'+ error)
         return message.ERROR_INTERNAL_SERVER_CONTROLLER//500
     }
     
@@ -248,12 +249,12 @@ const excluirGenero = async function (id) {
 }
 
 //Funcção para validar todos os dados de filme(obrigatórios, quantidade de caracteres, etc)
-const validarDados = async function (filme) {
+const validarDados = async function (genero) {
     //Criando um clone do objeto JSON para manipular a sua estrutura local sem modificar a estrutra original
     let message = JSON.parse(JSON.stringify(config_message))
 
     //Validação de dados para os atributos do filme (status 400)
-    if (cargo.cargo == undefined || cargo.cargo == '' || cargo.cargo == null || cargo.cargo.length > 45) {
+    if (genero.genero == undefined || genero.genero == '' || genero.genero == null || genero.genero.length > 45) {
         message.ERROR_BAD_REQUEST.field = '[genero] INVÁLIDO'
         return config_message.ERROR_BAD_REQUEST //400
 

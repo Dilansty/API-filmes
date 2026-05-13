@@ -115,19 +115,35 @@ app.delete("/v1/senai/locadora/filme/:id", async function(request, response) {
 
 
 
-//APP DO GENERO
-app.post('/v1/senai/locadora/genero', bodyParserJSON, async function(request, response){
-    //Recebe o conteudo dentro do body da requisição
-    let dados = request.body
-    //recebe o contentType da requisição para validar se é um JSON
-    let contentType = request.headers['content-type']
-    //console.log(request.headers)
+// //APP DO GENERO
+// app.post('/v1/senai/locadora/genero', bodyParserJSON, async function(request, response){
+//     //Recebe o conteudo dentro do body da requisição
+//     let dados = request.body
+//     //recebe o contentType da requisição para validar se é um JSON
+//     let contentType = request.headers['content-type']
+//     //console.log(request.headers)
 
-    let result = await controllerGenero.inserirNovoGenero(dados, contentType)
-    console.log(result)
+//     let result = await controllerGenero.inserirNovoGenero(dados, contentType)
+//     console.log(result)
+//     response.status(result.status_code)
+//     response.json(result)
+
+// })
+
+app.post("/v1/senai/locadora/genero", bodyParserJSON, async function(request,response){
+
+    // recebe o conteudo dentro do body da requisição
+    let dados = request.body
+    let conteType = request.headers['content-type']
+
+    //console.log(request.headers)
+                       
+    let result = await controllerGenero.inserirNovoGenero(dados,conteType)
+
+    
     response.status(result.status_code)
     response.json(result)
-
+    
 })
 
 
