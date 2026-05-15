@@ -20,7 +20,7 @@ const cors          = require('cors')
 const bodyParser    = require('body-parser')
 
 //Import das CONTROLLERS do projeto
-const controllerFilme = require('./controller/filme/controller_filme.js')
+const controgenero = require('./controller/filme/controller_filme.js')
 const controllerGenero = require('./controller/genero/controller_genero.js')
 
 //Criando um objeto para manipular dados do body da API em formato JSON
@@ -115,20 +115,10 @@ app.delete("/v1/senai/locadora/filme/:id", async function(request, response) {
 
 
 
-// //APP DO GENERO
-// app.post('/v1/senai/locadora/genero', bodyParserJSON, async function(request, response){
-//     //Recebe o conteudo dentro do body da requisição
-//     let dados = request.body
-//     //recebe o contentType da requisição para validar se é um JSON
-//     let contentType = request.headers['content-type']
-//     //console.log(request.headers)
 
-//     let result = await controllerGenero.inserirNovoGenero(dados, contentType)
-//     console.log(result)
-//     response.status(result.status_code)
-//     response.json(result)
 
-// })
+
+
 
 app.post("/v1/senai/locadora/genero", bodyParserJSON, async function(request,response){
 
@@ -155,6 +145,45 @@ app.get("/v1/senai/locadora/genero", async function(request,response){
     response.status(result.status_code)
     response.json(result)
      
+})
+
+
+app.get("/v1/senai/locadora/genero/:id", async function(request, response) {
+    //Recebe o ID por parametro
+    let id = request.params.id
+    
+    let result = await controllerGenero.buscarGenero(id)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
+//Endpoint para Atualizar um genero pelo ID
+app.put("/v1/senai/locadora/genero/:id",bodyParserJSON, async function(request, response) {
+    
+    //Recebe o content type da requisição
+    let contentType = request.headers['content-type']
+    //Recebe o ID do registro a ser atualizado
+    let id = request.params.id
+    //Recebe os dados enviados no corpo da requisição
+    let dados = request.body
+
+    //Chama a função de atualizar na controller e encaminha os dados, id e content-type obedecendo a ordem
+    //de criação na função da controller
+    let result = await controllerGenero.atualizarGenero(dados, id, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
+//Endpoint para Deletar um genero pelo ID
+app.delete("/v1/senai/locadora/genero/:id", async function(request, response) {
+    let id = request.params.id
+    
+    let result = await controllerGenero.excluirGenero(id)
+
+    response.status(result.status_code)
+    response.json(result)
 })
 
 

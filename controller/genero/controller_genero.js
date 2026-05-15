@@ -102,7 +102,7 @@ async function inserirNovoGenero(genero,conteType) {
     
 }
 
-//Função para atualizar um filme existente na tabela
+//Função para atualizar um genero existente na tabela
 const atualizarGenero = async function (genero,id,contentType) {
     let message = JSON.parse(JSON.stringify(config_message))
             
@@ -110,17 +110,17 @@ const atualizarGenero = async function (genero,id,contentType) {
         //Validação do content type para receber o JSON
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON'){
             let resultBuscarID = await buscargenero(id)
-            //Se a função buscar encontrar o filme o atributo status do JSON será verdadeiro
-            //Isso significa que o filme existe na base, caso não retorne true, então p retorno da função
+            //Se a função buscar encontrar o genero o atributo status do JSON será verdadeiro
+            //Isso significa que o genero existe na base, caso não retorne true, então p retorno da função
             //poderá ser um 400 ou 404 ou até mesmo um 500
             if(resultBuscarID.status){           
                 let validar = await validarDados(genero)
                 //validação de campos obrigatorios para a atualização(body)
                 if(!validar){
-                    //adiciono o atributo ID do filme no JSON para ser enviado ao DAO
+                    //adiciono o atributo ID do genero no JSON para ser enviado ao DAO
                     genero.id = id
 
-                    //chama a função do DAO para atualizar o filme(dados e o ID)
+                    //chama a função do DAO para atualizar o genero(dados e o ID)
                     let result = await generoDAO.updateGenero(genero)
 
                     if(result){
@@ -151,7 +151,7 @@ const atualizarGenero = async function (genero,id,contentType) {
     }
 }
 
-//Função para retornar todos os dados da tabela de filme
+//Função para retornar todos os dados da tabela de genero
 const selecionarGenero = async function () {
 }
 
@@ -165,14 +165,14 @@ const listarGenero = async function () {
         if (result) {
             // valida se a array de retorno do DAO tem algo dentro
             if (result.length>0) {
-                //poem o status , o codigo de status e a msg com os filmes
+                //poem o status , o codigo de status e a msg com os generos
                 message.DEFAULT_MESSAGE.status            = message.SUCCESS_RESPONSE.status
                 message.DEFAULT_MESSAGE.status_code       = message.SUCCESS_RESPONSE.status_code
                 message.DEFAULT_MESSAGE.response.count    = result.length
                 message.DEFAULT_MESSAGE.response.genero    = result
                 
                 // retorna tudo
-                return message.DEFAULT_MESSAGE // 200 dados do filme
+                return message.DEFAULT_MESSAGE // 200 dados do genero
             }else{
                 return message.ERROR_NOT_FOUND//404
             }
@@ -186,7 +186,7 @@ const listarGenero = async function () {
     }
 }
 
-//Função para retornar os dados do filme filtrando pelo ID
+//Função para retornar os dados do genero filtrando pelo ID
 const buscarGenero = async function (id) {
      //Criando um clone do objeto JSON para manipular a sua estrutura local sem modificar a estrutra original
      let message = JSON.parse(JSON.stringify(config_message))
@@ -220,7 +220,7 @@ const buscarGenero = async function (id) {
     }
 }
 
-//Função para excluir um filme pelo ID
+//Função para excluir um genero pelo ID
 const excluirGenero = async function (id) {
     let message = JSON.parse(JSON.stringify(config_message))
 
@@ -230,7 +230,7 @@ const excluirGenero = async function (id) {
 
         //Validação para verificar se o status é verdadeiro(se existe o ID)
         if(resultBuscarID.status){
-            //Chamar a função do DAO para excluir o filme
+            //Chamar a função do DAO para excluir o genero
             let result = await generoDAO.deleteGenero(id)
             
             if(result){
@@ -248,12 +248,12 @@ const excluirGenero = async function (id) {
 
 }
 
-//Funcção para validar todos os dados de filme(obrigatórios, quantidade de caracteres, etc)
+//Funcção para validar todos os dados de genero(obrigatórios, quantidade de caracteres, etc)
 const validarDados = async function (genero) {
     //Criando um clone do objeto JSON para manipular a sua estrutura local sem modificar a estrutra original
     let message = JSON.parse(JSON.stringify(config_message))
 
-    //Validação de dados para os atributos do filme (status 400)
+    //Validação de dados para os atributos do genero (status 400)
     if (genero.genero == undefined || genero.genero == '' || genero.genero == null || genero.genero.length > 45) {
         message.ERROR_BAD_REQUEST.field = '[genero] INVÁLIDO'
         return config_message.ERROR_BAD_REQUEST //400
