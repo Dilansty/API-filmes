@@ -1,5 +1,5 @@
 /***********************************************************************************
- * Objetivo: Arquivo responsavel pelo CRUD no banco de dados MySQUL na tabela cargo
+ * Objetivo: Arquivo responsavel pelo CRUD no banco de dados MySQUL na tabela genero
  * Data: 08/05/2026
  * Autor: Allan de Sousa Almeida
  * Versão: 1.0 
@@ -14,7 +14,7 @@ const knexConfig = require('../../database_config_knex/knexFile.js')
 //Criar a conexão com o BD MySQL
 const knexConex = knex(knexConfig.development)
 
-//Função para inserir dados na tabela de filme
+//Função para inserir dados na tabela de genero
 const updateGenero = async function (genero) {
     try {
          let sql = `  
@@ -41,7 +41,7 @@ const updateGenero = async function (genero) {
 async function insertGenero(genero){
 
     try {
-        //script pra onserir filme no banco de dados
+        //script pra onserir genero no banco de dados
         let sql = `insert into tbl_genero(
                         genero
                         )
@@ -61,10 +61,10 @@ async function insertGenero(genero){
 
 }
 
-//Função para retornar todos os dados da tabela de filme
+//Função para retornar todos os dados da tabela de genero
 const selectAllGenero = async function () {
     try {
-        //script select pra ver todos os filmes
+        //script select pra ver todos os generos
         let sql = `select * from tbl_genero order by id desc`
 
         // executa o script no banco
@@ -84,7 +84,7 @@ const selectAllGenero = async function () {
     }
 }
 
-//Função para retornar os dados do filme filtrando pelo ID
+//Função para retornar os dados do genero filtrando pelo ID
 const selectByIdGenero = async function (id) {
     try {
         let sql = `select * from tbl_genero where id=${id}`
@@ -101,7 +101,7 @@ const selectByIdGenero = async function (id) {
 
 }
 
-//Função para excluir um filme pelo ID
+//Função para excluir um genero pelo ID
 const deleteGenero = async function (id) {
     try {
         let sql = `delete from tbl_genero where id = ${id} ;`

@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: Projeto de filmes SENAI Jandira
+  description: API destinada para controlar filmes
+  termsOfService: http://swagger.io/terms/
+  version: 1.0.4.26
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://
+paths:
+  /v1/senai/locadora/filme:
+    post:
+      tags:
+        - aluno
+      summary: Adiciona um novo Aluno
+      description: Adiciona um novo Aluno
+      requestBody:
+        description: JSON contendo os dados do anovo aluno a ser inserido no sistema
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Filme'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+        '400':
+          description: Invalid input
+    get:
+      tags:
+        - filme
+      summary: Adiciona um novo Filme
+      description: Adiciona um novo Filme no banco de dados
+      responses:
+        '200':
+          description: JSON contendo os dados do novo filme a ser inserido no sistema
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Filme'          
+           
+        '404':
+          description: Not Found
+  /v1/senai/locadora/filme/{id}:
+    get:
+      tags:
+        - Filme
+      summary: Busca um filme prlo ID
+      description: Retorna um filme pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID para retornar o filme
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Filme'          
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Filme not found
+    put:
+      tags:
+        - Filme
+      summary: Atualizar um filme existente pelo ID
+      description: Localizar e atualizar um filme buscando pelo ID
+      parameters:
+        - name: id
+          in: path
+          description: ID para localizar e atualizar o filme
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: Atualizar um filme ja existente no banco
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Filme'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Filme not found   
+    delete:
+      tags:
+        - Filme
+      summary: Deletar Filme listado pelo ID
+      description: Excluir um Filme
+      parameters:
+        - name: id
+          in: path
+          description: ID para excluir um filme no banco de dados
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Filme not found
+  
+
+components:
+  schemas:
+    Filme:
+      required:
+        - nome
+        - data_lancamento
+        - duracao
+        - sinopse
+        - avaliacao
+        - valor
+        - capa
+      type: object
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        data_lancamento:
+          type: string
+        duracao:
+          type: string
+        sinopse:
+          type: string
+        avaliacao:
+          type: string
+        valor:
+          type: string
+        capa:
+          type: string   
+  requestBodies:
+    Aluno:
+      description: Objeto que deve ser enviado no Body das requisicoes
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Filme'
+    
+

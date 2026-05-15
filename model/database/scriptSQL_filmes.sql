@@ -16,35 +16,48 @@ valor 				decimal(5,2) not null default 0,
 capa 				varchar(255)
 );
 
+#################################################
+#Cria a tabela de cargo
 create table tbl_cargo(
-    id          int not null primary key auto_increment,
-    cargo       varchar(45) not null
+	id		 			int not null primary key auto_increment,
+    cargo	 			varchar(45) not null
 );
 
+#################################################
 create table tbl_nacionalidade(
-id                  int not null primary key auto_increment,
-tbl_nacionalidade   varchar(45) not null
+	id		 			int not null primary key auto_increment,
+    nacionalidade	 	varchar(40) not null
+    
 );
 
+drop table tbl_nascionalidade;
+
+
+#####################################################
 create table tbl_genero(
-    id          int not null primary key auto_increment,
-    genero       varchar(45) not null
+	id		 			int not null primary key auto_increment,
+    genero	 			varchar(40) not null
 );
 
+
+#################################################
 create table tbl_classificacao(
-    id          int not null primary key auto_increment,
-    classificacao       varchar(45) not null,
-    caracteristica       varchar(45) not null
+	id		 			int not null primary key auto_increment,
+    classificacao	 	varchar(80) not null,
+	caracteristica	 	varchar(80) not null
 );
 
+drop table tbl_classificacao;
+
+##############################################################
 create table tbl_pessoa(
-    id                   int not null primary key auto_increment,
-    nome                 varchar(100) not null,
-    data_nascimento      date,
-    biografia            text,
-    foto                 varchar(255) 
+	id		 			int not null primary key auto_increment,
+    nome	 			varchar(80) not null,
+	data_nascimento	 	date not null,
+    biografia			text,
+    foto 				varchar(255)
+    
 );
-
 
 
 show tables;
@@ -86,3 +99,14 @@ values (
         valor = '10',
         capa = 'teste capa'
         where id = 14;
+        
+        select tbl_filme.nome as nome_filme, tbl_filme.sinopse, tbl_filme.data_lancamento, tbl_filme.capa,
+				tbl_classificacao.classificacao,tbl_classificacao.caracteristica
+                
+                
+                
+                from tbl_filme
+					inner join tbl_classificacao_filme_pais## inner join = existe uma relação entre as duas tabelas
+						on tbl_filme.id = tbl_classificacao_filme_pais.id_filme
+                        inner join tbl_classificacao
+                        on tbl_classificacao.id = tbl_classificacao_filme_pais.id_classificacao;

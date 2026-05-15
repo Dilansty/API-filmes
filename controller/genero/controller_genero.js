@@ -9,57 +9,11 @@
 //import do arquivo de padronização de mensagens
 const config_message = require('../modulo/configMessages.js')
 
-//Import do arquivo DAO para fazer o CRUD do filme no banco de dados
+//Import do arquivo DAO para fazer o CRUD do genero no banco de dados
 const generoDAO = require('../../model/DAO/genero/genero.js')
 
-//Função para inserir dados na tabela de filme
-// const inserirNovoGenero = async function (genero, contentType) {
 
-
-//     //Criando um clone do objeto JSON para manipular a sua estrutura local sem modificar a estrutra original
-//     let message = JSON.parse(JSON.stringify(config_message))
-
-//     try {
-//         //console.log(genero)
-//         if (String(contentType).toUpperCase() == 'APPLICATION/JSON') {
-
-
-//             //Validação de dados para os atributos do Filme(Status 400)
-//             let validar = await validarDados(genero)
-
-//             //SSe a função validar retornar um JSON de erro, iremos devolver ao APP o erro
-//             if (validar) {
-//                 return validar
-//             } else {
-//                 //Encaminha os dados do filme para o DAO
-//                 let result = await generoDAO.insertGenero(genero)
-
-//                 // console.log(result)
-
-//                 if (result) { //201
-//                     //Criando o atributo ID no JSON do filme e colocando o ID gerado após o insert
-//                     genero.id = result
-                    
-//                     message.DEFAULT_MESSAGE.status       = message.SUCCESS_CREATED_ITEM.status
-//                     message.DEFAULT_MESSAGE.status_code  = message.SUCCESS_CREATED_ITEM.status_code
-//                     message.DEFAULT_MESSAGE.message      = message.SUCCESS_CREATED_ITEM.message
-//                     message.DEFAULT_MESSAGE.response     = genero
-
-//                     return message.DEFAULT_MESSAGE//200 (atualizado)
-
-//                 } else { //500
-//                     // console.log(2)
-//                     return message.ERROR_INTERNAL_SERVER_MODEL //500(model)
-//                 }
-//             }
-//         } else {
-//             return message.ERROR_CONTENT_TYPE//415
-//         }
-
-//     } catch (error) {
-//         return message.ERROR_INTERNAL_SERVER_CONTROLLER //500(controller)
-//     }
-// }
+//Função para inserir dados na tabela de genero
 
 async function inserirNovoGenero(genero,conteType) {
 
@@ -81,22 +35,24 @@ async function inserirNovoGenero(genero,conteType) {
 
                 if (result) {
 
-                    genero.id = result// coloca o id ao cargo apos ele ser inserido no banco 
-                    message.DEFAULT_MESSAGE.status      = message.SUCESS_CREATED_ITEM.status
-                    message.DEFAULT_MESSAGE.status_code = message.SUCESS_CREATED_ITEM.status_code
-                    message.DEFAULT_MESSAGE.message     = message.SUCESS_CREATED_ITEM.message
+                    genero.id = result// coloca o id ao genero apos ele ser inserido no banco 
+                    message.DEFAULT_MESSAGE.status      = message.SUCCESS_CREATED_ITEM.status
+                    message.DEFAULT_MESSAGE.status_code = message.SUCCESS_CREATED_ITEM.status_code
+                    message.DEFAULT_MESSAGE.message     = message.SUCCESS_CREATED_ITEM.message
                     message.DEFAULT_MESSAGE.response    = genero
+
+                    return message.DEFAULT_MESSAGE//200 (atualizado)
                         
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL//erro 500
-                    
+                                       
                 }
-                return message.DEFAULT_MESSAGE
+                
             }
         }else{return message.ERROR_CONTENT_TYPE}//415
             
     } catch (error) {
-        console.log('deu ruim'+ error)
+        console.log('deu ruim '+ error)
         return message.ERROR_INTERNAL_SERVER_CONTROLLER//500
     }
     
@@ -155,7 +111,7 @@ const atualizarGenero = async function (genero,id,contentType) {
 const selecionarGenero = async function () {
 }
 
-//Função para retornar todos os filmes
+//Função para retornar todos os generos
 const listarGenero = async function () {
     let message = JSON.parse(JSON.stringify(config_message))
         

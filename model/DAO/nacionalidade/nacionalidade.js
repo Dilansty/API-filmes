@@ -14,12 +14,12 @@ const knexConfig = require('../../database_config_knex/knexFile.js')
 //Criar a conexão com o BD MySQL
 const knexConex = knex(knexConfig.development)
 
-//Função para inserir dados na tabela de filme
+//Função para inserir dados na tabela de nacionalidade
 const updateNacionalidade = async function (nacionalidade) {
     try {
          let sql = `  
         update tbl_nacionalidade set
-        cargo                = '${nacionalidade.nacionalidade}'
+        nacionalidade                = '${nacionalidade.nacionalidade}'
         where id = ${nacionalidade.id};`
 
         // Executa o script SQL do BD
@@ -35,15 +35,15 @@ const updateNacionalidade = async function (nacionalidade) {
     }
 }
 
-//Função para atualizar um filme existente na tabela
+//Função para atualizar um nacionalidade existente na tabela
 const insertNacionalidade = async function (nacionalidade) {
     try {
         let sql = `insert into tbl_nacionalidade(
-                    nacionalidade,
-                )
-            values (
-                '${nacionalidade.nacionalidade}',
-                );`
+            nacionalidade
+        )
+    values(
+            '${nacionalidade.nacionalidade}'); `
+
 
 
         //Executar o ScriptSQL no banco de dados
@@ -61,10 +61,10 @@ const insertNacionalidade = async function (nacionalidade) {
     }
 }
 
-//Função para retornar todos os dados da tabela de filme
+//Função para retornar todos os dados da tabela de nacionalidade
 const selectAllNacionalidade = async function () {
     try {
-        //script select pra ver todos os filmes
+        //script select pra ver todos os nacionalidades
         let sql = `select * from tbl_nacionalidade order by id desc`
 
         // executa o script no banco
@@ -84,7 +84,7 @@ const selectAllNacionalidade = async function () {
     }
 }
 
-//Função para retornar os dados do filme filtrando pelo ID
+//Função para retornar os dados do nacionalidade filtrando pelo ID
 const selectByIdNacionalidade = async function (id) {
     try {
         let sql = `select * from tbl_nacionalidade where id=${id}`
@@ -101,7 +101,7 @@ const selectByIdNacionalidade = async function (id) {
 
 }
 
-//Função para excluir um filme pelo ID
+//Função para excluir um nacionalidade pelo ID
 const deleteNacionalidade = async function (id) {
     try {
         let sql = `delete from tbl_nacionalidade where id = ${id} ;`
