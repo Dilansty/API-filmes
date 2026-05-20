@@ -51,14 +51,17 @@ const inserirNovoCargo = async function (cargo, contentType) {
                     // console.log(2)
                     return message.ERROR_INTERNAL_SERVER_MODEL //500(model)
                 }
-                return message.DEFAULT_MESSAGE
+                
             }
         } else {
+            
             return message.ERROR_CONTENT_TYPE//415
         }
 
     } catch (error) {
+        console.log('babau ' + error)
         return message.ERROR_INTERNAL_SERVER_CONTROLLER //500(controller)
+
     }
 }
 
@@ -214,8 +217,8 @@ const validarDados = async function (cargo) {
     let message = JSON.parse(JSON.stringify(config_message))
 
     //Validação de dados para os atributos do cargo (status 400)
-    if (cargo.nome == undefined || cargo.nome == '' || cargo.nome == null || cargo.nome.length > 200) {
-        message.ERROR_BAD_REQUEST.field = '[NOME] INVÁLIDO'
+    if (cargo.cargo == undefined || cargo.cargo == '' || cargo.cargo == null || cargo.cargo.length > 200) {
+        message.ERROR_BAD_REQUEST.field = '[CARGO] INVÁLIDO'
         return config_message.ERROR_BAD_REQUEST //400
     } else {
         return false

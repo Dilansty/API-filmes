@@ -12,6 +12,9 @@ const config_message = require('../modulo/configMessages.js')
 //Import do arquivo DAO para fazer o CRUD do filme no banco de dados
 const filmeDAO = require('../../model/DAO/filme/filme.js')
 
+//import de arquivos de controller
+const controller_classificacao = require('../classificacao/controller_classificacao.js')
+
 //Função para inserir dados na tabela de filme
 const inserirNovoFilme = async function (filme, contentType) {
 
@@ -125,6 +128,21 @@ const listarFilme = async function () {
         if (result) {
             // valida se a array de retorno do DAO tem algo dentro
             if (result.length>0) {
+
+                //Percorre o ARRAY de filmes para identificar os dados da classificação
+                for(filme of result){
+                    //busca na controller da classificacao o id referente aos dados
+                    let resultClassificacao = await controller_classificacao.buscarClassificacao
+                    //se a classificacao foi encontradad
+                    if(resultClassificacao.status){
+
+                        //Cria o atributo classificacao no filme e adiciona os dados referente a classifcacao
+                        filme.classificacao = resultClassificacao.response.classificacao
+                        //apaga o atributo id_classificacao do filme para não ficar repetido
+                        delete filme.id_classificacao
+                    }
+                }
+
                 //poem o status , o codigo de status e a msg com os filmes
                 message.DEFAULT_MESSAGE.status            = message.SUCCESS_RESPONSE.status
                 message.DEFAULT_MESSAGE.status_code       = message.SUCCESS_RESPONSE.status_code
@@ -240,6 +258,11 @@ const validarDados = async function (filme) {
 
     } else if (filme.capa.length > 255) {
         message.ERROR_BAD_REQUEST.field = '[CAPA] INVÁLIDO'
+        return config_message.ERROR_BAD_REQUEST //400
+
+        //Validação para a FK da classificacao
+    } else if (filme.id.classificacao == undefined || filme.id.classificacao == '' || filme.id.classificacao <=0 || filme.id.classificacao == null || isNaN(filme.id.classificacao)) {
+        message.ERROR_BAD_REQUEST.field = '[ID.CLASSIFICACAO] INVÁLIDO'
         return config_message.ERROR_BAD_REQUEST //400
 
     } else {
