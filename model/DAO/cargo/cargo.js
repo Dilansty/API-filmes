@@ -38,13 +38,13 @@ const updateCargo = async function (cargo) {
 //Função para atualizar um cargo existente na tabela
 const insertCargo = async function (cargo) {
     try {
+        //script pra onserir cargo no banco de dados
         let sql = `insert into tbl_cargo(
-                    cargo,
-                )
-            values (
-                '${cargo.cargo}',
-                );`
-
+                        cargo
+                        )
+                    values(
+                        '${cargo.cargo}'); `
+        
 
         //Executar o ScriptSQL no banco de dados
         let result = await knexConex.raw(sql)

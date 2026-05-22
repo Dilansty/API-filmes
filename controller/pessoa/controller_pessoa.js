@@ -222,6 +222,7 @@ const validarDados = async function (pessoa) {
         message.ERROR_BAD_REQUEST.field = '[DATA] INVÁLIDO'
         return config_message.ERROR_BAD_REQUEST //400
 
+<<<<<<< HEAD
     } else if (pessoa.duracao == undefined || pessoa.duracao == '' || pessoa.duracao == null || pessoa.duracao.length < 5) {
         message.ERROR_BAD_REQUEST.field = '[DURAÇÃO] INVÁLIDO'
         return config_message.ERROR_BAD_REQUEST //400
@@ -240,6 +241,14 @@ const validarDados = async function (pessoa) {
 
     } else if (pessoa.capa.length > 255) {
         message.ERROR_BAD_REQUEST.field = '[CAPA] INVÁLIDO'
+=======
+    } else if (pessoa.pais_nascimento == undefined || pessoa.pais_nascimento == '' || pessoa.pais_nascimento == null ) {
+        message.ERROR_BAD_REQUEST.field = '[PAIS] INVÁLIDO'
+        return config_message.ERROR_BAD_REQUEST //400
+
+    } else if (pessoa.foto > 255) {
+        message.ERROR_BAD_REQUEST.field = '[FOTO] INVÁLIDO'
+>>>>>>> cebd21a0c44f01655f172aff4075626057b76233
         return config_message.ERROR_BAD_REQUEST //400
 
     } else {

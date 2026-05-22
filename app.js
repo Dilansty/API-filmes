@@ -25,7 +25,7 @@ const controllerGenero = require('./controller/genero/controller_genero.js')
 const controllerNacionalidade = require('./controller/nacionalidade/controller_nacionalidade.js')
 const controllerCargo = require('./controller/cargo/controller_cargo.js')
 const controllerPessoa = require('./controller/pessoa/controller_pessoa.js')
-
+const controllerClassificacao = require('./controller/classificacao/controller_classificacao.js')
 
 
 //Criando um objeto para manipular dados do body da API em formato JSON
@@ -45,6 +45,16 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 //EndPoints para a API
+
+
+
+
+
+/************************************************************************************
+
+ENDPOINT FILMES
+
+***************************************************************************************/
 
 
 //APP DO FILME
@@ -108,6 +118,11 @@ app.delete("/v1/senai/locadora/filme/:id", async function(request, response) {
     response.status(result.status_code)
     response.json(result)
 })
+
+
+
+
+
 
 
 
@@ -186,6 +201,9 @@ app.delete("/v1/senai/locadora/genero/:id", async function(request, response) {
 
 
 
+
+
+
 /************************************************************************************
 
 ENDPOINT NACIONALIDADE
@@ -254,6 +272,13 @@ app.delete("/v1/senai/locadora/nacionalidade/:id", async function(request, respo
     response.status(result.status_code)
     response.json(result)
 })
+
+
+
+
+
+
+
 
 
 /************************************************************************************
@@ -347,7 +372,7 @@ app.post('/v1/senai/locadora/cargo', bodyParserJSON, async function(request, res
     let contentType = request.headers['content-type']
     //console.log(request.headers)
 
-    let result = await controllerCargo.inserirNovaCargo(dados, contentType)
+    let result = await controllerCargo.inserirNovoCargo(dados, contentType)
     console.log(result)
     response.status(result.status_code)
     response.json(result)
@@ -407,7 +432,89 @@ app.delete("/v1/senai/locadora/cargo/:id", async function(request, response) {
 
 
 
+
+
+
+
+
+
+/************************************************************************************
+
+ENDPOINT CLASSIFICACAO
+
+***************************************************************************************/
+
+
+app.post('/v1/senai/locadora/classificacao', bodyParserJSON, async function(request, response){
+    //Recebe o conteudo dentro do body da requisição
+    let dados = request.body
+    //recebe o contentType da requisição para validar se é um JSON
+    let contentType = request.headers['content-type']
+    //console.log(request.headers)
+
+    let result = await controllerClassificacao.inserirNovaClassificacao(dados, contentType)
+    console.log(result)
+    response.status(result.status_code)
+    response.json(result)
+})
+
+
+
+app.get("/v1/senai/locadora/classificacao", async function(request,response){
+    let result = await controllerClassificacao.listarClassificacao()
+
+    response.status(result.status_code)
+    response.json(result)
+     
+})
+
+
+app.get("/v1/senai/locadora/classificacao/:id", async function(request, response) {
+    //Recebe o ID por parametro
+    let id = request.params.id
+    
+    let result = await controllerClassificacao.buscarClassificacao(id)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
+//Endpoint para Atualizar um Classificacao pelo ID
+app.put("/v1/senai/locadora/classificacao/:id",bodyParserJSON, async function(request, response) {
+    
+    //Recebe o content type da requisição
+    let contentType = request.headers['content-type']
+    //Recebe o ID do registro a ser atualizado
+    let id = request.params.id
+    //Recebe os dados enviados no corpo da requisição
+    let dados = request.body
+
+    //Chama a função de atualizar na controller e encaminha os dados, id e content-type obedecendo a ordem
+    //de criação na função da controller
+    let result = await controllerClassificacao.atualizarClassificacao(dados, id, contentType)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
+//Endpoint para Deletar um Classificacao pelo ID
+app.delete("/v1/senai/locadora/classificacao/:id", async function(request, response) {
+    let id = request.params.id
+    
+    let result = await controllerClassificacao.excluirClassificacao(id)
+
+    response.status(result.status_code)
+    response.json(result)
+})
+
+
+
+
+
+
 //serve para inicializar a API para receber requisições
 app.listen(8080, function () {
     console.log('API funcionando e aguardando novas requisições . . .')
 })
+
+
