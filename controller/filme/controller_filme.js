@@ -9,6 +9,8 @@
 //import do arquivo de padronização de mensagens
 const config_message = require('../modulo/configMessages.js')
 
+const controller_filme_genero = require('./controller_filme_genero.js')
+
 //Import do arquivo DAO para fazer o CRUD do filme no banco de dados
 const filmeDAO = require('../../model/DAO/filme/filme.js')
 
@@ -39,7 +41,23 @@ const inserirNovoFilme = async function (filme, contentType) {
                 if (result) { //201
                     //Criando o atributo ID no JSON do filme e colocando o ID gerado após o insert
                     filme.id = result
-                    
+
+
+                    //Manipulação de dados para inserir os generos do Filme
+                    for (genero of filme.genero) {               
+                        //Cria um objeto JSON com os ID's do filme e do genero
+                        let filmeGenero = {
+                                            "id_filme"    : filme.id,
+                                            "id_genero"   : genero.id   
+                                          }
+                        //chama a controller do filme_genero para inserir os ID's                  
+                        let resultInsertGenero = await controller_filme_genero.inserirNovoFilmeGenero(filmeGenero)
+
+
+                        if(!resultInsertGenero.status){
+                            return message.SUCCESS_CREATED_ITEM_WARNING //201 com alerta de dados não inseridos
+                        }
+                    }
                     message.DEFAULT_MESSAGE.status       = message.SUCCESS_CREATED_ITEM.status
                     message.DEFAULT_MESSAGE.status_code  = message.SUCCESS_CREATED_ITEM.status_code
                     message.DEFAULT_MESSAGE.message      = message.SUCCESS_CREATED_ITEM.message
@@ -125,6 +143,22 @@ const listarFilme = async function () {
         if (result) {
             // valida se a array de retorno do DAO tem algo dentro
             if (result.length>0) {
+
+                 //Percorre O ARRAY de filmes para identificar os dados de classificação
+                 for(filmes of result){
+                    //Busca na controller da classificação o ID referente aos dados
+                    let resultClassificacao = await controller_classificacao.selectByIdClassificacao(filmes.id_classificacao_indicativa)
+                    //Se a classificação foi encontrada
+                    if(resultClassificacao){
+                        //Cria o atributo classificação no filme e adiciona os dados referente a classificação
+                        filmes.classificacao = resultClassificacao
+                        //Apaga o atributo id_classificação_indicativa do filme para não ficar repetido
+                        delete filmes.id_classificacao_indicativa 
+                    }
+                }
+
+
+
                 //poem o status , o codigo de status e a msg com os filmes
                 message.DEFAULT_MESSAGE.status            = message.SUCCESS_RESPONSE.status
                 message.DEFAULT_MESSAGE.status_code       = message.SUCCESS_RESPONSE.status_code

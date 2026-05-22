@@ -65,7 +65,7 @@ const atualizarGenero = async function (genero,id,contentType) {
     try {
         //Validação do content type para receber o JSON
         if (String(contentType).toUpperCase() == 'APPLICATION/JSON'){
-            let resultBuscarID = await buscargenero(id)
+            let resultBuscarID = await buscarGenero(id)
             //Se a função buscar encontrar o genero o atributo status do JSON será verdadeiro
             //Isso significa que o genero existe na base, caso não retorne true, então p retorno da função
             //poderá ser um 400 ou 404 ou até mesmo um 500
@@ -226,5 +226,6 @@ module.exports = {
     selecionarGenero,
     listarGenero,
     buscarGenero,
-    excluirGenero
+    excluirGenero,
+    
 }

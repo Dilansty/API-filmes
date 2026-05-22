@@ -110,3 +110,9 @@ values (
 						on tbl_filme.id = tbl_classificacao_filme_pais.id_filme
                         inner join tbl_classificacao
                         on tbl_classificacao.id = tbl_classificacao_filme_pais.id_classificacao;
+                        
+                        
+                        
+                        select * from tbl_filme_genero;
+                        delete from tbl_filme_genero;
+                        

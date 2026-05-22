@@ -25,7 +25,7 @@ const updatePessoa = async function (pessoa) {
         nome                = '${pessoa.nome}',
         data_nascimento     = '${pessoa.data_nascimento}',
         biografia           = '${pessoa.biografia}',
-        foto                = if('${pessoa.foto}'
+        foto                = '${pessoa.foto}'
         where id = ${pessoa.id};`
 
         // Executa o script SQL do BD
