@@ -40,7 +40,6 @@ create table tbl_genero(
 );
 
 
-
 #################################################
 create table tbl_classificacao(
 	id		 			int not null primary key auto_increment,
@@ -114,6 +113,7 @@ values (
                         
                         
                         
-                        select * from tbl_filme_genero;
-                        delete from tbl_filme_genero;
+                        select * from tbl_filme;
+                        select * from tbl_genero;
+                        select* from tbl_filme_genero;
                         

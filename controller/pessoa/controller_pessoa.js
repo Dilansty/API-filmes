@@ -48,7 +48,7 @@ const inserirNovaPessoa = async function (pessoa, contentType) {
                     return message.DEFAULT_MESSAGE//200 (atualizado)
 
                 } else { //500
-                    // console.log(2)
+                     
                     return message.ERROR_INTERNAL_SERVER_MODEL //500(model)
                 }
                 return message.DEFAULT_MESSAGE
@@ -58,6 +58,7 @@ const inserirNovaPessoa = async function (pessoa, contentType) {
         }
 
     } catch (error) {
+        console.log(error)
         return message.ERROR_INTERNAL_SERVER_CONTROLLER //500(controller)
     }
 }
@@ -222,33 +223,12 @@ const validarDados = async function (pessoa) {
         message.ERROR_BAD_REQUEST.field = '[DATA] INVÁLIDO'
         return config_message.ERROR_BAD_REQUEST //400
 
-<<<<<<< HEAD
-    } else if (pessoa.duracao == undefined || pessoa.duracao == '' || pessoa.duracao == null || pessoa.duracao.length < 5) {
-        message.ERROR_BAD_REQUEST.field = '[DURAÇÃO] INVÁLIDO'
-        return config_message.ERROR_BAD_REQUEST //400
-
-    } else if (pessoa.sinopse == undefined || pessoa.sinopse == '' || pessoa.sinopse == null) {
-        message.ERROR_BAD_REQUEST.field = '[SINOPSE] INVÁLIDO'
-        return config_message.ERROR_BAD_REQUEST //400
-
-    } else if (isNaN(pessoa.avaliacao) || pessoa.avaliacao.length > 3) {
-        message.ERROR_BAD_REQUEST.field = '[AVALIAÇÃO] INVÁLIDO'
-        return config_message.ERROR_BAD_REQUEST //400
-
-    } else if (pessoa.valor == undefined || pessoa.valor == '' || pessoa.valor == null || pessoa.valor.split('.')[0].length > 3 || isNaN(pessoa.valor)) {
-        message.ERROR_BAD_REQUEST.field = '[VALOR] INVÁLIDO'
-        return config_message.ERROR_BAD_REQUEST //400
-
-    } else if (pessoa.capa.length > 255) {
-        message.ERROR_BAD_REQUEST.field = '[CAPA] INVÁLIDO'
-=======
-    } else if (pessoa.pais_nascimento == undefined || pessoa.pais_nascimento == '' || pessoa.pais_nascimento == null ) {
-        message.ERROR_BAD_REQUEST.field = '[PAIS] INVÁLIDO'
+    } else if (pessoa.biografia == undefined || pessoa.biografia == '' || pessoa.biografia == null ) {
+        message.ERROR_BAD_REQUEST.field = '[BIOGRAFIA] INVÁLIDO'
         return config_message.ERROR_BAD_REQUEST //400
 
     } else if (pessoa.foto > 255) {
         message.ERROR_BAD_REQUEST.field = '[FOTO] INVÁLIDO'
->>>>>>> cebd21a0c44f01655f172aff4075626057b76233
         return config_message.ERROR_BAD_REQUEST //400
 
     } else {

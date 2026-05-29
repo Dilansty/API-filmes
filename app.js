@@ -295,7 +295,7 @@ app.post('/v1/senai/locadora/pessoa', bodyParserJSON, async function(request, re
     let contentType = request.headers['content-type']
     //console.log(request.headers)
 
-    let result = await controllerPessoa.inserirNovaPessoa(dados, contentType)
+    let result = await controllerPessoa.inserirNovaPessoa(dados, contentType                )
     console.log(result)
     response.status(result.status_code)
     response.json(result)

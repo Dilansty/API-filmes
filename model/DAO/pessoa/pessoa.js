@@ -44,21 +44,19 @@ const updatePessoa = async function (pessoa) {
 //Função para atualizar um filme existente na tabela
 const insertPessoa = async function (pessoa) {
     try {
-        let sql = `insert into tbl_pessoa(
-                    nome,
-                    data_nascimento,
-                    biografia,
-                    foto
-                )
-            values (
-                '${pessoa.nome}',
-                '${pessoa.data_nascimento}',
-                '${pessoa.biografia}',
-                '${pessoa.foto}',
-                );`
-
-
-
+         //script pra onserir filme no banco de dados
+         let sql = `insert into tbl_pessoa(
+            nome, 
+            data_nascimento, 
+            biografia, 
+            foto
+        )
+    values(
+            '${pessoa.nome}',
+            '${pessoa.data_nascimento}',
+            '${pessoa.biografia}',
+            '${pessoa.foto}'); `
+            
         //Executar o ScriptSQL no banco de dados
         let result = await knexConex.raw(sql)
 

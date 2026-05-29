@@ -147,7 +147,6 @@ const listarFilme = async function () {
             // valida se a array de retorno do DAO tem algo dentro
             if (result.length>0) {
 
-<<<<<<< HEAD
                  //Percorre O ARRAY de filmes para identificar os dados de classificação
                  for(filmes of result){
                     //Busca na controller da classificação o ID referente aos dados
@@ -163,22 +162,6 @@ const listarFilme = async function () {
 
 
 
-=======
-                //Percorre o ARRAY de filmes para identificar os dados da classificação
-                for(filme of result){
-                    //busca na controller da classificacao o id referente aos dados
-                    let resultClassificacao = await controller_classificacao.buscarClassificacao
-                    //se a classificacao foi encontradad
-                    if(resultClassificacao.status){
-
-                        //Cria o atributo classificacao no filme e adiciona os dados referente a classifcacao
-                        filme.classificacao = resultClassificacao.response.classificacao
-                        //apaga o atributo id_classificacao do filme para não ficar repetido
-                        delete filme.id_classificacao
-                    }
-                }
-
->>>>>>> cebd21a0c44f01655f172aff4075626057b76233
                 //poem o status , o codigo de status e a msg com os filmes
                 message.DEFAULT_MESSAGE.status            = message.SUCCESS_RESPONSE.status
                 message.DEFAULT_MESSAGE.status_code       = message.SUCCESS_RESPONSE.status_code
