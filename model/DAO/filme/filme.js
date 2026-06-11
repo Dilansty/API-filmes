@@ -77,6 +77,7 @@ const insertFilme = async function (filme) {
         if(result){
             return result[0].insertId // Retorna o ID gerado no BD
         }else{
+            console.log(error)
             return false
         }
         
